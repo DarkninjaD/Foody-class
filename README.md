@@ -1,5 +1,7 @@
 # Foody - Food Recipes App Developed in Kotlin
 
+**Student version.** 
+
 Modern Food Recipes App - Android Development with Kotlin | Online Course
 
 Udemy: https://www.udemy.com/course/modern-food-recipes-app-android-development-with-kotlin/?referralCode=A60525980D41EFB701C8
