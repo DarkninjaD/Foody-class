@@ -32,6 +32,7 @@ class RecipesFragment : Fragment() {
         mainViewModal = ViewModelProvider(requireActivity()).get(MainViewModal::class.java)
         recipesViewModel = ViewModelProvider(requireActivity()).get(RecipesViewModel::class.java)
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
