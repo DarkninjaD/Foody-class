@@ -1,4 +1,6 @@
-package com.example.foody
+package com.example.foody.util
+
+import com.example.foody.BuildConfig
 
 class Constants {
     companion object {
