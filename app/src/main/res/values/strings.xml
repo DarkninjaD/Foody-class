@@ -9,4 +9,10 @@
     <string name="jokes">Jokes!</string>
     <string name="recipes">Recipes</string>
     <string name="no_connections">No Internet Connections</string>
+    <string name="vegan">Vegan</string>
+    <string name="veganIcon">VeganIcon</string>
+    <string name="PlaceHolderInt">100</string>
+    <string name="timeIcon">timeIcon</string>
+    <string name="favIcon">favIcon</string>
+    <string name="thumbnail">thumbnail</string>
 </resources>
