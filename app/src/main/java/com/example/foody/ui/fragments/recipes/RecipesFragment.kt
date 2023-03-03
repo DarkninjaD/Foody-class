@@ -1,6 +1,7 @@
 package com.example.foody.ui.fragments.recipes
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foody.viewmodles.MainViewModal
 import com.example.foody.R
@@ -17,6 +19,7 @@ import com.example.foody.util.NetworkResult
 import com.example.foody.viewmodles.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
+import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -40,8 +43,21 @@ class RecipesFragment : Fragment() {
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.fragment_recipes, container, false)
         setupRecyclerView()
-        requestApiData()
+        readDatabase()
         return mView
+    }
+
+    private fun readDatabase() {
+        lifecycleScope.launch {
+            mainViewModal.readRecipes.observe(viewLifecycleOwner) { database ->
+                if (database.isNotEmpty()) {
+                    mAdapter.setData(database[0].foodRecipes)
+                    hideShimmerEffect()
+                } else {
+                    requestApiData()
+                }
+            }
+        }
     }
 
     private fun requestApiData() {
@@ -54,6 +70,7 @@ class RecipesFragment : Fragment() {
                 }
                 is NetworkResult.Error -> {
                     hideShimmerEffect()
+                    loadDataFromCache()
                     Toast.makeText(
                         requireContext(),
                         response.message.toString(),
@@ -67,14 +84,26 @@ class RecipesFragment : Fragment() {
         }
     }
 
+    private fun loadDataFromCache() {
+        lifecycleScope.launch {
+            mainViewModal.readRecipes.observe(viewLifecycleOwner) { database ->
+                if (database.isNotEmpty()) {
+                    mAdapter.setData(database[0].foodRecipes)
+                }
+            }
+        }
+    }
+
     private fun showShimmerEffect() {
         mView.recipes_recyclerView.showShimmer()
     }
+
     private fun setupRecyclerView() {
         mView.recipes_recyclerView.adapter = mAdapter
         mView.recipes_recyclerView.layoutManager = LinearLayoutManager(requireContext())
         showShimmerEffect()
     }
+
     private fun hideShimmerEffect() {
         mView.recipes_recyclerView.hideShimmer()
     }
