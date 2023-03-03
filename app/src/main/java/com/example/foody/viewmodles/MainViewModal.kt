@@ -1,4 +1,4 @@
-package com.example.foody
+package com.example.foody.viewmodles
 
 import android.app.Application
 import android.content.Context
