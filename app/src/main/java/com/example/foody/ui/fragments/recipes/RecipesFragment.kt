@@ -16,6 +16,7 @@ import com.example.foody.R
 import com.example.foody.adapters.RecipesAdapter
 import com.example.foody.util.Constants.Companion.API_KEY
 import com.example.foody.util.NetworkResult
+import com.example.foody.util.observeOnce
 import com.example.foody.viewmodles.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
@@ -49,7 +50,7 @@ class RecipesFragment : Fragment() {
 
     private fun readDatabase() {
         lifecycleScope.launch {
-            mainViewModal.readRecipes.observe(viewLifecycleOwner) { database ->
+            mainViewModal.readRecipes.observeOnce(viewLifecycleOwner) { database ->
                 if (database.isNotEmpty()) {
                     mAdapter.setData(database[0].foodRecipes)
                     hideShimmerEffect()
