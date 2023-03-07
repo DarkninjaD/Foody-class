@@ -16,8 +16,8 @@ class RecipesViewModel(application: Application) : AndroidViewModel(application)
 
         queries[QUERY_NUMBER] = "10"
         queries[QUERY_APIKEY] = API_KEY
-        queries[QUERY_TYPE] = "snack"
-        queries[QUERY_DIET] = "vegan"
+        queries[QUERY_TYPE] = "main course"
+        queries[QUERY_DIET] = "gluten free"
         queries[QUERY_ADD_RECIPES_INFORMATION] = "true"
         queries[QUERY_FILL_INGREDIENTS] = "true"
 

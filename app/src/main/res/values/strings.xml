@@ -39,4 +39,7 @@
     <string name="lacto_vegetarian">Lacto-Vegetarian</string>
     <string name="vegetarian">Vegetarian</string>
     <string name="apply">Apply</string>
+    <string name="appetizer">Appetizer</string>
+    <string name="bread">Bread</string>
+    <string name="breakfast">Breakfast</string>
 </resources>
