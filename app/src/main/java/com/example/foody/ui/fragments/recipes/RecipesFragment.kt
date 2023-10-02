@@ -1,32 +1,31 @@
 package com.example.foody.ui.fragments.recipes
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.foody.viewmodles.MainViewModal
 import com.example.foody.R
 import com.example.foody.adapters.RecipesAdapter
 import com.example.foody.databinding.FragmentRecipesBinding
-import com.example.foody.util.Constants.Companion.API_KEY
 import com.example.foody.util.NetworkResult
 import com.example.foody.util.observeOnce
 import com.example.foody.viewmodles.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_recipes.view.*
 import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
 class RecipesFragment : Fragment() {
+
+    private val  args by navArgs<RecipesFragmentArgs>()
 
     private var _binding : FragmentRecipesBinding? = null
     private val binding get() = _binding!!
@@ -62,7 +61,7 @@ class RecipesFragment : Fragment() {
     private fun readDatabase() {
         lifecycleScope.launch {
             mainViewModal.readRecipes.observeOnce(viewLifecycleOwner) { database ->
-                if (database.isNotEmpty()) {
+                if (database.isNotEmpty() && !args.backFromBottomSheet) {
                     mAdapter.setData(database[0].foodRecipes)
                     hideShimmerEffect()
                 } else {
@@ -111,7 +110,6 @@ class RecipesFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-
         binding.recipesRecyclerView.adapter = mAdapter
         binding.recipesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         showShimmerEffect()

@@ -10,16 +10,18 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.foody.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
+
 @AndroidEntryPoint
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var navController : NavController
+    private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val navHostController = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
+        val navHostController =
+            supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         navController = navHostController.navController
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -28,8 +30,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.foodJokeFragment
             )
         )
-//        Log.e("test", nav)
-
         bottomNavigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration)
     }
@@ -37,6 +37,4 @@ class MainActivity : AppCompatActivity() {
 //    override fun onSupportNavigateUp(): Boolean {
 //        return navController.navigateUp() || super.onSupportNavigateUp()
 //    }
-
-
 }
